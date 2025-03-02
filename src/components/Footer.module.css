@@ -1,0 +1,7 @@
+footer {
+  margin-top: 10em;
+  background-color: var(--green);
+  min-height: 10em;
+  color: var(--text);
+  font-weight: 600;
+}

@@ -1,0 +1,25 @@
+.links_container {
+  display: flex;
+  font-size: 1.5rem;
+  width: 10em;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.circle_border {
+  border: 3px solid var(--nero);
+  border-radius: 50%;
+  width: 1.8em;
+  height: 1.8em;
+  color: var(--nero);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.1s linear;
+}
+
+.circle_border:hover {
+  border-color: var(--green);
+  color: var(--green);
+}

@@ -1,0 +1,34 @@
+.user_wrapper {
+  display: flex;
+}
+
+.user_wrapper nav {
+  background-color: var(--green);
+  width: 20%;
+  padding: 2em;
+  min-height: 50vh;
+}
+
+.user_wrapper nav li {
+  padding: 1em 0;
+}
+
+.user_wrapper a {
+  font-weight: 600;
+}
+
+.content_wrapper {
+  width: 80%;
+  padding: 3em 0 0 3em;
+}
+
+@media (max-width: 768px) {
+  .user_wrapper nav {
+    display: none;
+  }
+
+  .content_wrapper {
+    width: 100%;
+    padding: 3em 0;
+  }
+}

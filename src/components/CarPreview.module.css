@@ -1,0 +1,52 @@
+.ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+  padding: 2em;
+  gap: 1em;
+  justify-content: center;
+}
+
+.li {
+  padding: 1em;
+  background-color: #ecf9ed;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+  min-height: 30em;
+}
+
+.li:hover {
+  background-color: var(--green);
+}
+
+.li div {
+  display: flex;
+  justify-content: center;
+}
+
+.li:hover {
+  cursor: pointer;
+}
+
+.li a {
+  color: var(--nero);
+}
+
+.li a img {
+  height: 15em;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.car_info {
+  margin-bottom: 1em;
+}
+
+.car_info li {
+  padding: 0.5em 0;
+  border-bottom: 1px solid var(--green);
+  font-weight: 600;
+}
+
+.li h4 {
+  text-align: end;
+}
