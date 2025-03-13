@@ -7,15 +7,11 @@
 
 .form {
   background-color: #ffffff;
-  padding: 20px 50px 20px 50px;
+  padding: 1.5em;
   border-radius: 2px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   margin-inline: auto;
-}
-
-.error {
-  margin: 1em 0;
 }
 
 .inputs_wrapper {
@@ -29,12 +25,19 @@
   gap: 1em;
 }
 
+.error {
+  padding: 1em;
+  background-color: var(--warning-background);
+  color: var(--warning-text);
+  border-radius: 0 0 5px 5px;
+  margin-bottom: 1em;
+}
+
 .input {
-  height: 50px;
+  padding: 0.8em;
   border: 2px solid var(--gray-border);
   background: none;
   font-size: 16px;
-  padding-left: 10px;
   width: 100%;
 }
 
@@ -43,11 +46,20 @@
   font-weight: 500;
 }
 
+.invalid_input {
+  border-color: var(--warning-text);
+}
+
+.invalid_input::placeholder {
+  color: var(--warning-text);
+}
+
 .input:focus {
   outline: none;
 }
 
 @media (max-width: 768px) {
-  .inputs_wrapper {
+  .form {
+    padding: 1.5em 0.5em;
   }
 }

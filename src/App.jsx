@@ -28,13 +28,14 @@ import UserReservationsPage, {
 import UserCreditCardsPage, {
   deleteCardAction,
 } from "./routes/UserCreditCardsPage";
+import ReviewCarPage from "./routes/ReviewCarPage";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <RootLayout />,
-      errorElement: <ErrorPage />,
+      // errorElement: <ErrorPage />,
       loader: authLoader,
       id: "authLoader",
       children: [
@@ -75,6 +76,12 @@ function App() {
               path: "reservations",
               element: <UserReservationsPage />,
               action: cancelReservationAction,
+              children: [
+                {
+                  path: ":car_id/review",
+                  element: <ReviewCarPage />,
+                },
+              ],
             },
             {
               path: "credit_cards",

@@ -1,13 +1,38 @@
-import { Form, Link, useRouteLoaderData } from "react-router-dom";
+import { Form, Link, useFetcher, useRouteLoaderData } from "react-router-dom";
 import styles from "./MainNavigation.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function MainNavigation() {
   const { token } = useRouteLoaderData("authLoader");
   const [dropDownOpened, setDropDownOpened] = useState(false);
+  const fetcher = useFetcher();
+  const [filteredCars, setFilteredCars] = useState([]);
+
+  useEffect(() => {
+    fetcher.load("/rentacar");
+  }, []);
+
+  function updateUserSearch(e) {
+    setFilteredCars(() => {
+      if (e.target.value.trim().length > 2) {
+        return fetcher.data.filter(
+          (car) =>
+            car.manufacturer
+              .toLowerCase()
+              .includes(e.target.value.toLowerCase()) ||
+            car.model.toLowerCase().includes(e.target.value.toLowerCase()) ||
+            car.year.includes(e.target.value)
+        );
+      } else {
+        return [];
+      }
+    });
+  }
+
+  console.log(filteredCars);
 
   function toggleDropDown() {
     setDropDownOpened(() => !dropDownOpened);
@@ -34,10 +59,25 @@ export default function MainNavigation() {
           </ul>
 
           <Form className={styles.search}>
-            <input type="text" placeholder="Search..." />
+            <input
+              onChange={updateUserSearch}
+              type="text"
+              placeholder="Search..."
+            />
             <button>
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
+            {filteredCars.length > 0 && (
+              <ul className={styles.user_drop_down_menu}>
+                {filteredCars.map((car) => (
+                  <li>
+                    <Link to={`/rentacar/${car.car_id}`}>
+                      {car.manufacturer} {car.model} {car.year}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </Form>
 
           {!token && (

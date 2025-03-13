@@ -7,8 +7,8 @@ export default function ErrorPage() {
 
   return (
     <>
-      <Error error={error.message} />
       <Outlet />
+      <Error error={error.message} />
     </>
   );
 }

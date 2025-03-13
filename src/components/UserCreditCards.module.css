@@ -2,14 +2,39 @@
   margin-top: 1em;
 }
 
-.cards_wrapper li {
-  border: 2px solid var(--green);
-  margin: 1em 0;
+.card_info_wrapper {
+  /* margin: 1em 0; */
   padding: 1em;
-  border-radius: 2px;
+  border-radius: 5px;
   display: flex;
+  flex-wrap: wrap;
   cursor: pointer;
   justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.6) 0px 2px 4px -1px;
+  transition: 0.1s ease-in-out all;
+}
+
+.card_info_wrapper span {
+  min-width: 11em;
+  text-align: center;
+}
+
+.cards_wrapper input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+.cards_wrapper input[type="radio"]:checked ~ * {
+  background-color: var(--light-green);
+  transform: translateY(-5px);
+
+  color: var(--green);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.6) 0px 2px 4px -1px;
 }
 
 .delete_card {
@@ -23,4 +48,18 @@
   justify-content: end;
   align-items: center;
   padding-right: 1em;
+}
+
+.half_space {
+  max-width: 50%;
+}
+
+@media (max-width: 768px) {
+  .card_info_wrapper span {
+    justify-content: center;
+  }
+
+  .half_space {
+    max-width: 100%;
+  }
 }

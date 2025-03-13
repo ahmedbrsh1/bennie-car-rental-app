@@ -33,7 +33,7 @@ export default function CarDetails({ car }) {
         <div className={styles.car_details_wrapper}>
           <div className={styles.car_image_wrapper}>
             <img src={carImageSrc} alt="" />
-            <div className={styles.stars_wrapper}>
+            {/* <div className={styles.stars_wrapper}>
               <div></div>
               <span></span>
               <FontAwesomeIcon icon={faStar} />
@@ -41,7 +41,7 @@ export default function CarDetails({ car }) {
               <FontAwesomeIcon icon={faStar} />
               <FontAwesomeIcon icon={faStar} />
               <FontAwesomeIcon icon={faStar} />
-            </div>
+            </div> */}
 
             <h3>Available On</h3>
             <div className={styles.calendar}>

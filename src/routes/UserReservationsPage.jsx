@@ -1,7 +1,10 @@
+import { Outlet } from "react-router-dom";
 import UserReservations from "../components/UserReservations";
+
 export default function UserReservationsPage() {
   return (
     <>
+      <Outlet />
       <UserReservations />
     </>
   );

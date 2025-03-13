@@ -18,6 +18,14 @@
   background-color: var(--green);
 }
 
+.li:hover .car_info li {
+  border-color: #ecf9ed;
+}
+
+.li:hover svg {
+  color: #ecf9ed;
+}
+
 .li div {
   display: flex;
   justify-content: center;

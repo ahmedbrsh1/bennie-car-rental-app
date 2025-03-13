@@ -1,5 +1,7 @@
 import { redirect, useActionData } from "react-router-dom";
 import Login from "../components/Login";
+import { hasEmptyFields, invalidEmail } from "../util/validation";
+
 export default function LoginPage() {
   const errorData = useActionData();
   return (
@@ -10,12 +12,19 @@ export default function LoginPage() {
 }
 
 export async function loginAction({ request }) {
-  const data = await request.formData();
-  const user = {
-    email: data.get("email"),
+  const fd = await request.formData();
+  const user = Object.fromEntries(fd.entries());
 
-    password: data.get("password"),
+  const errors = {
+    ...invalidEmail(user.email),
+    ...hasEmptyFields(user),
   };
+
+  if (Object.keys(errors).length > 0) {
+    console.log(errors);
+
+    return errors;
+  }
 
   const response = await fetch(
     "http://localhost:8000/index.php?action=loginUser",

@@ -10,11 +10,14 @@
   -moz-osx-font-smoothing: grayscale;
   --green: #109b5a;
   --dark-green: #0f884f;
+  --light-green: #ecf9ed;
   --transparent-green: rgba(13, 124, 72, 0.8);
   --text: #f0f0f0;
   --nero: #2b3944;
   --gray: #a7a7a7;
   --gray-border: #d2d2d2;
+  --warning-background: #ffeaed;
+  --warning-text: #931a33;
 }
 
 * {

@@ -16,18 +16,23 @@ export default function UserCreditCards() {
           <ul className={styles.cards_wrapper}>
             {userCreditCards.map((creditCard) => (
               <li key={creditCard.card_id}>
-                <input
-                  type="radio"
-                  name="card_id"
-                  value={creditCard.card_id}
-                  onFocus={() => selectCardHandler(true)}
-                  onBlur={() => selectCardHandler(false)}
-                />
-                <span>
-                  Card ending in {creditCard.card_number.toString().slice(-4)}
-                </span>
-                <span>{creditCard.cardholder_name}</span>
-                <span>{creditCard.expiration_date}</span>
+                <label htmlFor={creditCard.card_id}>
+                  <input
+                    type="radio"
+                    name="card_id"
+                    id={creditCard.card_id}
+                    value={creditCard.card_id}
+                    onFocus={() => selectCardHandler(true)}
+                  />
+                  <span className={styles.card_info_wrapper}>
+                    <span>
+                      Card ending in{" "}
+                      {creditCard.card_number.toString().slice(-4)}
+                    </span>
+                    <span>{creditCard.cardholder_name}</span>
+                    <span>{creditCard.expiration_date}</span>
+                  </span>
+                </label>
               </li>
             ))}
           </ul>

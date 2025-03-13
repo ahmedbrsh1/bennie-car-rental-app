@@ -1,10 +1,16 @@
-import { redirect } from "react-router-dom";
+import { redirect, useActionData } from "react-router-dom";
 import AddCard from "../components/AddCard";
+import {
+  belowMinLength,
+  hasEmptyFields,
+  invalidCardNumber,
+} from "../util/validation";
 
 export default function AddCardPage() {
+  const errorData = useActionData();
   return (
     <>
-      <AddCard />
+      <AddCard errorData={errorData} />
     </>
   );
 }
@@ -12,13 +18,17 @@ export default function AddCardPage() {
 export async function addCreditCard({ request, params }) {
   const token = localStorage.getItem("token");
   const form = await request.formData();
-  const card = {
-    card_number: form.get("number"),
-    cardholder_name: form.get("name"),
-    expiration_date: form.get("exdate"),
-    cvv: form.get("cvv"),
+  const card = Object.fromEntries(form.entries());
+
+  const errors = {
+    ...invalidCardNumber(card.card_number),
+    ...belowMinLength("cvv", "CVV", card.cvv, 3),
+    ...hasEmptyFields(card),
   };
-  console.log(card);
+
+  if (Object.keys(errors).length > 0) {
+    return errors;
+  }
 
   const response = await fetch(
     "http://localhost:8000/index.php?action=addCreditCard",
@@ -33,7 +43,8 @@ export async function addCreditCard({ request, params }) {
   );
 
   if (!response.ok) {
-    console.log(123);
+    const resError = await response.json();
+    return resError;
   }
 
   if (params.id) {

@@ -1,4 +1,4 @@
-import { Form, useRouteLoaderData } from "react-router-dom";
+import { Form, Link, useRouteLoaderData } from "react-router-dom";
 
 export default function UserReservations() {
   const userBookings = useRouteLoaderData("userDataLoader").bookings;
@@ -35,6 +35,11 @@ export default function UserReservations() {
                       Cancel
                     </button>
                   </Form>
+                </td>
+              )}
+              {booking.status === "Completed" && (
+                <td>
+                  <Link to={`5/review`}>Review</Link>
                 </td>
               )}
             </tr>

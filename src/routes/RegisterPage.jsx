@@ -1,5 +1,11 @@
 import { redirect, useActionData } from "react-router-dom";
 import Register from "../components/Register";
+import {
+  belowMinLength,
+  hasEmptyFields,
+  invalidEmail,
+  isEmpty,
+} from "../util/validation";
 
 export default function RegisterPage() {
   const errorData = useActionData();
@@ -8,16 +14,17 @@ export default function RegisterPage() {
 
 export async function registerAction({ request }) {
   const data = await request.formData();
-  const user = {
-    fname: data.get("fname"),
-    lname: data.get("lname"),
-    email: data.get("email"),
-    ssn: data.get("ssn"),
-    lic_num: data.get("license_number"),
-    phone_number: data.get("phone_number"),
-    gender: data.get("gender"),
-    password: data.get("password"),
+  const user = Object.fromEntries(data.entries());
+
+  const errors = {
+    ...invalidEmail(user.email),
+    ...belowMinLength("password", "Password", user.password, 8),
+    ...hasEmptyFields(user),
   };
+
+  if (Object.keys(errors).length > 0) {
+    return errors;
+  }
 
   const response = await fetch(
     "http://localhost:8000/index.php?action=registerUser",
