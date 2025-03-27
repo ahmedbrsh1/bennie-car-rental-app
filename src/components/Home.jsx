@@ -8,8 +8,9 @@ import {
   faCar,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import CarPreview from "./CarPreview";
 
-export default function Home() {
+export default function Home({ cars }) {
   return (
     <>
       <Header />
@@ -98,6 +99,16 @@ export default function Home() {
           </p>
           <Link style={{ color: "var(--nero)" }}>Read More</Link>
         </article>
+      </InformationSection>
+      <div className="seperating-border"></div>
+      <InformationSection
+        mainHeader={"Explore a Sample"}
+        mainHeaderGreen={"Of Our Cars"}
+        paragraph={
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora reiciendis aspernatur neque dolores mollitia molestias obcaecati quas esse, illo doloremque provident perferendis placeat maxime! Non accusantium reiciendis modi saepe aliquam?"
+        }
+      >
+        <CarPreview cars={cars} />
       </InformationSection>
     </>
   );

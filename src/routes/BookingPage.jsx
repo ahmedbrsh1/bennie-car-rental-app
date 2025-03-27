@@ -1,21 +1,14 @@
-import {
-  Outlet,
-  redirect,
-  useActionData,
-  useLoaderData,
-} from "react-router-dom";
+import { redirect, useActionData, useLoaderData } from "react-router-dom";
 import Booking from "../components/Booking";
 
 import { hasEmptyFields, isEmpty } from "../util/validation";
 
 export default function BookingPage() {
   const errorData = useActionData();
-
   const creditCards = useLoaderData();
 
   return (
     <>
-      <Outlet />
       <Booking creditCards={creditCards} errorData={errorData} />
     </>
   );

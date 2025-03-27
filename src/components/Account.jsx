@@ -6,10 +6,11 @@ export default function Account() {
   const userInfo = userData.user;
   const submit = useSubmit();
   function startDelete() {
-    window.alert(
-      "Are you sure you want to delete your account ? This cannot be undone."
-    );
-    if (proceed) {
+    if (
+      confirm(
+        "Are you sure you want to delete your account ? This cannot be undone."
+      )
+    ) {
       submit(null, { method: "DELETE" });
     }
   }
@@ -75,10 +76,10 @@ export default function Account() {
         </div>
       </div>
       <div className="button-container">
-        <button className="button primary-button">Update</button>
-        <button onClick={startDelete} className="secondary-link">
+        <button onClick={startDelete} className="danger-button">
           Delete Account
         </button>
+        <button className="button primary-button">Update</button>
       </div>
     </Form>
   );

@@ -10,13 +10,60 @@ import {
   faCar,
   faWind,
 } from "@fortawesome/free-solid-svg-icons";
-import { faStar } from "@fortawesome/free-regular-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 export default function CarDetails({ car }) {
   const carImageSrc = `/images/car/${car.car_id}.png`;
   const navigate = useNavigate();
   const monthName = new Date().toLocaleString("default", { month: "long" });
-  console.log(car.reservations);
+
+  let calendar = {
+    1: "Not Reserved",
+    2: "Not Reserved",
+    3: "Not Reserved",
+    4: "Not Reserved",
+    5: "Not Reserved",
+    6: "Not Reserved",
+    7: "Not Reserved",
+    8: "Not Reserved",
+    9: "Not Reserved",
+    10: "Not Reserved",
+    11: "Not Reserved",
+    12: "Not Reserved",
+    13: "Not Reserved",
+    14: "Not Reserved",
+    15: "Not Reserved",
+    16: "Not Reserved",
+    17: "Not Reserved",
+    18: "Not Reserved",
+    19: "Not Reserved",
+    21: "Not Reserved",
+    22: "Not Reserved",
+    23: "Not Reserved",
+    24: "Not Reserved",
+    25: "Not Reserved",
+    26: "Not Reserved",
+    27: "Not Reserved",
+    28: "Not Reserved",
+    29: "Not Reserved",
+    30: "Not Reserved",
+    31: "Not Reserved",
+  };
+
+  function checkReservations() {
+    car.reservations.map((reservation) => {
+      const startDay = new Date(reservation.book_date).getDate();
+      const endDay = new Date(reservation.return_date).getDate();
+
+      Object.keys(calendar).forEach((day) => {
+        day = Number(day);
+        if (day >= startDay && day <= endDay) {
+          calendar[day] = "Reserved";
+        }
+      });
+    });
+  }
+  checkReservations();
 
   function goToBooking() {
     const token = localStorage.getItem("token");
@@ -43,47 +90,63 @@ export default function CarDetails({ car }) {
               <FontAwesomeIcon icon={faStar} />
             </div> */}
 
-            <h3>Available On</h3>
+            <h3 className="color-nero">Available On</h3>
             <div className={styles.calendar}>
               <h3 className={styles.month_name}>{monthName}</h3>
               <ul>
-                {Array.from({ length: 31 }, (_, i) => (
-                  <li key={i + 1}>{i + 1}</li>
+                {Object.entries(calendar).map(([day, status]) => (
+                  <li
+                    key={day}
+                    className={status === "Reserved" ? styles.reserved : ""}
+                  >
+                    {day}
+                  </li>
                 ))}
               </ul>
             </div>
             <div className={styles.customer_reviews}>
               <h2>See What Customers Said About This Vehicle</h2>
-              <ul>
-                <li>
-                  <div className={styles.user}>
-                    <div className={styles.user_pfp}>
-                      <FontAwesomeIcon icon={faUser} />
-                    </div>
-                    <div className={styles.user_info}>
-                      <h3>John Doe</h3>
-                      <p className="paragraph">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Harum deleniti, atque necessitatibus voluptate sapiente
-                      </p>
-                    </div>
+              {car.reviews.length > 0 && (
+                <ul>
+                  {car.reviews.map((review) => (
+                    <li>
+                      <div className={styles.user}>
+                        <div className={styles.user_pfp}>
+                          <FontAwesomeIcon icon={faUser} />
+                        </div>
+                        <div className={styles.user_info}>
+                          <h3>{review.user_name}</h3>
+                          <div>
+                            {Array.from({ length: review.rate }).map((_, i) => (
+                              <FontAwesomeIcon key={i} icon={faStar} />
+                            ))}
+                          </div>
+                          <p className="paragraph">{review.review}</p>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <li>
+                <div className={styles.user}>
+                  <div className={styles.user_pfp}>
+                    <FontAwesomeIcon icon={faUser} />
                   </div>
-                </li>
-                <li>
-                  <div className={styles.user}>
-                    <div className={styles.user_pfp}>
-                      <FontAwesomeIcon icon={faUser} />
+                  <div className={styles.user_info}>
+                    <h3>John Doe</h3>
+                    <div>
+                      {Array.from({ length: 3 }).map((_, i) => (
+                        <FontAwesomeIcon key={i} icon={faStar} />
+                      ))}
                     </div>
-                    <div className={styles.user_info}>
-                      <h3>John Doe</h3>
-                      <p className="paragraph">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Harum deleniti, atque necessitatibus voluptate sapiente
-                      </p>
-                    </div>
+                    <p className="paragraph">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Harum deleniti, atque necessitatibus voluptate sapiente
+                    </p>
                   </div>
-                </li>
-              </ul>
+                </div>
+              </li>
             </div>
           </div>
 

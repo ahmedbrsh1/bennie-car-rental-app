@@ -28,7 +28,7 @@ import UserReservationsPage, {
 import UserCreditCardsPage, {
   deleteCardAction,
 } from "./routes/UserCreditCardsPage";
-import ReviewCarPage from "./routes/ReviewCarPage";
+import ReviewCarPage, { reviewAction } from "./routes/ReviewCarPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -80,6 +80,7 @@ function App() {
                 {
                   path: ":car_id/review",
                   element: <ReviewCarPage />,
+                  action: reviewAction,
                 },
               ],
             },
@@ -141,7 +142,11 @@ function App() {
       ],
     },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;

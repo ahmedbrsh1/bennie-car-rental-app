@@ -89,9 +89,7 @@ export default function Booking({ creditCards, errorData }) {
               <div>
                 <input
                   className={`${classes.input} ${
-                    errorData?.fields &&
-                    errorData.fields.includes("pick-location") &&
-                    classes.invalid_input
+                    errorData?.["pick-location"] && classes.invalid_input
                   }`}
                   type="text"
                   id="pick-location"
@@ -105,9 +103,7 @@ export default function Booking({ creditCards, errorData }) {
               <div>
                 <input
                   className={`${classes.input} ${
-                    errorData?.fields &&
-                    errorData.fields.includes("drop-location") &&
-                    classes.invalid_input
+                    errorData?.["drop-location"] && classes.invalid_input
                   }`}
                   type="text"
                   id="drop-location"

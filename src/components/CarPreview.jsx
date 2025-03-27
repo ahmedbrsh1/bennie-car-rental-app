@@ -54,23 +54,27 @@ export default function CarPreview({ cars }) {
               </h3>
               <ul className={styles.car_info}>
                 <li>
-                  <FontAwesomeIcon icon={faUser} /> {car.capacity} People
+                  <FontAwesomeIcon className={styles.icon} icon={faUser} />{" "}
+                  {car.capacity} People
                 </li>
                 <li>
-                  <FontAwesomeIcon icon={faGear} /> {car.gear}
+                  <FontAwesomeIcon className={styles.icon} icon={faGear} />{" "}
+                  {car.gear}
                 </li>
                 <li>
-                  <FontAwesomeIcon icon={faGasPump} /> {car.fuel_type}
+                  <FontAwesomeIcon className={styles.icon} icon={faGasPump} />{" "}
+                  {car.fuel_type}
                 </li>
 
                 <li>
-                  <FontAwesomeIcon icon={faWind} />{" "}
+                  <FontAwesomeIcon className={styles.icon} icon={faWind} />{" "}
                   {(car.air_conditioning == 1 && "Yes") ||
                     (car.air_conditioning == 0 && "No")}
                 </li>
               </ul>
               <h3>
-                <FontAwesomeIcon icon={faWallet} /> Price Per Day
+                <FontAwesomeIcon className={styles.icon} icon={faWallet} />{" "}
+                Price Per Day
               </h3>
               <h4>{car.price_per_day} EGP</h4>
             </Link>

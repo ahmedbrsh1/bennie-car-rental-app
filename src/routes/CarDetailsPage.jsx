@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData, useLocation } from "react-router-dom";
 import CarDetails from "../components/CarDetails";
 
 export default function CarDetailsPage() {

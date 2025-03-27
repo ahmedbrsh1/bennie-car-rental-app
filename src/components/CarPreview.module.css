@@ -1,9 +1,13 @@
 .ul {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
-  padding: 2em;
+  grid-template-columns: repeat(auto-fit, minmax(23em, auto));
   gap: 1em;
-  justify-content: center;
+}
+
+@media (max-width: 1400px) {
+  .ul {
+    justify-content: center;
+  }
 }
 
 .li {
@@ -12,6 +16,14 @@
   border-radius: 10px;
   transition: all 0.2s ease-in-out;
   min-height: 30em;
+}
+
+.li .icon {
+  font-size: 1rem !important;
+}
+
+.li {
+  text-align: start !important;
 }
 
 .li:hover {

@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import User from "../components/User";
 
 export default function UserPage() {
@@ -28,29 +28,50 @@ export async function userDataLoader() {
 
 export async function userUpdateAndDeleteAction({ request }) {
   const token = localStorage.getItem("token");
-  const formData = await request.formData();
-  const newData = {
-    email: formData.get("email"),
-    phone_number: formData.get("phone_number"),
-    license_number: formData.get("license_number"),
-  };
 
-  const response = await fetch(
-    "http://localhost:8000/index.php?action=updateUserInfo",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(newData),
-      method: "PATCH",
+  if (request.method === "PATCH") {
+    const formData = await request.formData();
+    const newData = {
+      email: formData.get("email"),
+      phone_number: formData.get("phone_number"),
+      lic_num: formData.get("license_number"),
+    };
+
+    const response = await fetch(
+      "http://localhost:8000/index.php?action=updateUserInfo",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newData),
+        method: "PATCH",
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = response.json();
+      return errorData;
     }
-  );
+  } else if (request.method === "DELETE") {
+    const response = await fetch(
+      "http://localhost:8000/index.php?action=deleteUser",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
 
-  if (!response.ok) {
-    console.log("a7aaaaa");
+        method: "DELETE",
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = response.json();
+      return errorData;
+    }
+
+    // localStorage.removeItem("token");
+    return redirect("/about");
   }
-
-  const resData = await response.json();
-  console.log(resData);
 }

@@ -12,14 +12,21 @@
   width: 1.8em;
   height: 1.8em;
   color: var(--nero);
-
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.1s linear;
 }
 
+.circle_border svg {
+  color: var(--nero);
+}
+
 .circle_border:hover {
   border-color: var(--green);
+  color: var(--green);
+}
+
+.circle_border:hover svg {
   color: var(--green);
 }

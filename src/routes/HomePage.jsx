@@ -18,10 +18,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Home />
-      <div className="container">
-        <CarPreview cars={cars} />
-      </div>
+      <Home cars={cars} />
     </>
   );
 }

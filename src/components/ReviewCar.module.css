@@ -1,0 +1,29 @@
+.form {
+  background-color: #ffffff;
+  padding: 1.5em;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  margin-inline: auto;
+}
+
+.rate_wrapper {
+  display: flex;
+  margin: 0.5em 0;
+  justify-content: center;
+}
+
+.rate_wrapper input {
+  display: none;
+}
+
+.rate_wrapper label svg {
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: var(--gray-border);
+}
+
+.rate_wrapper input:checked ~ label svg,
+.rate_wrapper input:checked:nth-of-type(n) ~ input ~ label svg {
+  color: gold;
+}

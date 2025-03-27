@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation.jsx";
 import Footer from "../components/Footer.jsx";
 
@@ -6,7 +6,9 @@ export default function RootLayout() {
   return (
     <>
       <MainNavigation />
+
       <Outlet />
+
       <Footer />
     </>
   );
