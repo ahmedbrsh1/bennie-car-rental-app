@@ -1,7 +1,7 @@
 import { Form } from "react-router-dom";
 import Modal from "./Modal";
 import styles from "./ReviewCar.module.css";
-
+import styles2 from "./Search.module.css";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function rateCar() {
@@ -33,7 +33,11 @@ export default function rateCar() {
             <input type="radio" id="5" name="rate" value="5" />
           </div>
           <p>Leave a review. (optional)</p>
-          <input type="text" className={styles.input} name="review" />
+          <textarea
+            className={styles2.input}
+            style={{ height: "7em", resize: "none" }}
+            name="review"
+          />
           <div className="button-container">
             <button className="button primary-button">Submit</button>
           </div>

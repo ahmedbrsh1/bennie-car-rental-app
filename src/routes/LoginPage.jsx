@@ -21,8 +21,6 @@ export async function loginAction({ request }) {
   };
 
   if (Object.keys(errors).length > 0) {
-    console.log(errors);
-
     return errors;
   }
 

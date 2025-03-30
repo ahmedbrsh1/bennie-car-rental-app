@@ -10,15 +10,27 @@ export default function MainNavigation() {
   const { token } = useRouteLoaderData("authLoader");
   const fetcher = useFetcher();
   const [filteredCars, setFilteredCars] = useState([]);
+  const [cars, setCars] = useState([]);
+  const [isHoverUser, setIsHoverUser] = useState(false);
+
+  function isHoverUpdater() {
+    setIsHoverUser(!isHoverUser);
+  }
 
   useEffect(() => {
-    fetcher.load("/rentacar");
+    fetcher.load("/rentacar"); // Trigger the fetch on mount
   }, []);
+
+  useEffect(() => {
+    if (fetcher.data) {
+      setCars(fetcher.data); // Update state when fetcher.data is available
+    }
+  }, [fetcher.data]); // Runs only when fetcher.data changes
 
   function updateUserSearch(e) {
     setFilteredCars(() => {
       if (e.target.value.trim().length > 0) {
-        return fetcher.data.filter(
+        return cars.filter(
           (car) =>
             car.manufacturer
               .toLowerCase()
@@ -40,7 +52,11 @@ export default function MainNavigation() {
             <div className={styles.hover_icon}>
               <FontAwesomeIcon icon={faBars} />
             </div>
-            <ul className={styles.ul}>
+            <motion.ul
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className={styles.ul}
+            >
               <li>
                 <Link to={"/"}>Home</Link>
               </li>
@@ -53,7 +69,7 @@ export default function MainNavigation() {
               <li>
                 <Link to={"/contact"}>Contact</Link>
               </li>
-            </ul>
+            </motion.ul>
           </div>
 
           <div className={styles.search}>
@@ -68,19 +84,32 @@ export default function MainNavigation() {
             <AnimatePresence mode="wait">
               {filteredCars.length > 0 && (
                 <motion.ul
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      transition: { staggerChildren: 0.1 },
+                      opacity: 1,
+                    },
+                  }}
+                  initial="hidden"
+                  animate="visible"
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                   layout
                   className={styles.search_result}
                 >
                   {filteredCars.slice(0, 4).map((car) => (
-                    <li key={car.car_id}>
+                    <motion.li
+                      variants={{
+                        hidden: { y: -10, opacity: 0 },
+                        visible: { y: 0, opacity: 1 },
+                      }}
+                      key={car.car_id}
+                    >
                       <Link to={`/rentacar/${car.car_id}`}>
                         {car.manufacturer} {car.model} {car.year}
                       </Link>
-                    </li>
+                    </motion.li>
                   ))}
                   {filteredCars.length > 4 && (
                     <li>
@@ -103,28 +132,63 @@ export default function MainNavigation() {
 
           {token && (
             <>
-              <div className={styles.user_drop_down_wrapper}>
+              <motion.div
+                onHoverStart={isHoverUpdater}
+                onHoverEnd={isHoverUpdater}
+                className={styles.user_drop_down_wrapper}
+              >
                 <div>
                   <FontAwesomeIcon icon={faUser} />
                 </div>
 
-                <ul className={styles.user_drop_down_menu}>
-                  <li>
+                <motion.ul
+                  variants={{
+                    hidden: { opacity: 0, visibility: "hidden" },
+                    visible: {
+                      transition: { staggerChildren: 0.1 },
+                      opacity: 1,
+                      visibility: "visible",
+                    },
+                  }}
+                  initial="hidden"
+                  animate={isHoverUser ? "visible" : "hidden"}
+                >
+                  <motion.li
+                    variants={{
+                      hidden: { y: -10, opacity: 0 },
+                      visible: { y: 0, opacity: 1 },
+                    }}
+                  >
                     <Link to={"/user/account"}>Account</Link>
-                  </li>
-                  <li>
+                  </motion.li>
+                  <motion.li
+                    variants={{
+                      hidden: { y: -10, opacity: 0 },
+                      visible: { y: 0, opacity: 1 },
+                    }}
+                  >
                     <Link to={"/user/reservations"}>Reservations</Link>
-                  </li>
-                  <li>
+                  </motion.li>
+                  <motion.li
+                    variants={{
+                      hidden: { y: -10, opacity: 0 },
+                      visible: { y: 0, opacity: 1 },
+                    }}
+                  >
                     <Link to={"/user/credit_cards"}>Credit Cards</Link>
-                  </li>
-                  <li>
+                  </motion.li>
+                  <motion.li
+                    variants={{
+                      hidden: { y: -10, opacity: 0 },
+                      visible: { y: 0, opacity: 1 },
+                    }}
+                  >
                     <Form action="/logout" method="post">
                       <button className={`${styles.button}`}>Logout</button>
                     </Form>
-                  </li>
-                </ul>
-              </div>
+                  </motion.li>
+                </motion.ul>
+              </motion.div>
             </>
           )}
         </div>

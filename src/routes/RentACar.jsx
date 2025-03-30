@@ -1,34 +1,36 @@
 import { Outlet, useActionData, useLoaderData } from "react-router-dom";
-import CarPreview from "../components/CarPreview";
-import Search from "../components/Search";
+
 import Listings from "../components/Listings";
 
 export default function RentACar() {
-  const cars = useLoaderData();
+  const { cars } = useLoaderData();
   const searchedCars = useActionData();
 
   return (
     <>
-      <Listings cars={cars} searchedCars={searchedCars} />
-
+      <Listings searchedCars={searchedCars} cars={cars} />
       <Outlet />
     </>
   );
 }
 
-export async function carsLoader() {
+async function fetchCars() {
   const branch_id = localStorage.getItem("branch_id");
   const response = await fetch(
     `http://localhost:8000/index.php?action=getAllCars&branch_id=${branch_id}`
   );
 
   if (!response.ok) {
-    //..
+    return { isError: true, message: "Could not fetch cars !" };
   } else {
-    const resData = await response.json();
-
-    return resData;
+    return response.json();
   }
+}
+
+export async function carsLoader() {
+  return {
+    cars: fetchCars(),
+  };
 }
 
 export async function searchAction({ request }) {

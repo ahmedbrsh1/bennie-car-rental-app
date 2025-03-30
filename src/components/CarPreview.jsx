@@ -10,6 +10,7 @@ import {
   faCar,
   faWind,
 } from "@fortawesome/free-solid-svg-icons";
+
 export default function CarPreview({ cars }) {
   const carImages = {
     1: "/images/car/1.png",
@@ -40,47 +41,54 @@ export default function CarPreview({ cars }) {
   };
 
   return (
-    <ul className={styles.ul}>
-      {cars.map((car) => {
-        return (
-          <li className={styles.li} key={car.car_id}>
-            <Link to={`/rentacar/${car.car_id}`}>
-              <div>
-                <img src={carImages[car.car_id]} alt="Car Image" />
-              </div>
+    <>
+      {(!cars?.isError && (
+        <ul className={styles.ul}>
+          {cars.map((car) => {
+            return (
+              <li className={styles.li} key={car.car_id}>
+                <Link to={`/rentacar/${car.car_id}`}>
+                  <div>
+                    <img src={carImages[car.car_id]} alt="Car Image" />
+                  </div>
 
-              <h3>
-                {car.manufacturer} {car.model} {car.year}
-              </h3>
-              <ul className={styles.car_info}>
-                <li>
-                  <FontAwesomeIcon className={styles.icon} icon={faUser} />{" "}
-                  {car.capacity} People
-                </li>
-                <li>
-                  <FontAwesomeIcon className={styles.icon} icon={faGear} />{" "}
-                  {car.gear}
-                </li>
-                <li>
-                  <FontAwesomeIcon className={styles.icon} icon={faGasPump} />{" "}
-                  {car.fuel_type}
-                </li>
+                  <h3>
+                    {car.manufacturer} {car.model} {car.year}
+                  </h3>
+                  <ul className={styles.car_info}>
+                    <li>
+                      <FontAwesomeIcon className={styles.icon} icon={faUser} />{" "}
+                      {car.capacity} People
+                    </li>
+                    <li>
+                      <FontAwesomeIcon className={styles.icon} icon={faGear} />{" "}
+                      {car.gear}
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.icon}
+                        icon={faGasPump}
+                      />{" "}
+                      {car.fuel_type}
+                    </li>
 
-                <li>
-                  <FontAwesomeIcon className={styles.icon} icon={faWind} />{" "}
-                  {(car.air_conditioning == 1 && "Yes") ||
-                    (car.air_conditioning == 0 && "No")}
-                </li>
-              </ul>
-              <h3>
-                <FontAwesomeIcon className={styles.icon} icon={faWallet} />{" "}
-                Price Per Day
-              </h3>
-              <h4>{car.price_per_day} EGP</h4>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+                    <li>
+                      <FontAwesomeIcon className={styles.icon} icon={faWind} />{" "}
+                      {(car.air_conditioning == 1 && "Yes") ||
+                        (car.air_conditioning == 0 && "No")}
+                    </li>
+                  </ul>
+                  <h3>
+                    <FontAwesomeIcon className={styles.icon} icon={faWallet} />{" "}
+                    Price Per Day
+                  </h3>
+                  <h4>{car.price_per_day} EGP</h4>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )) || <p className="danger">{cars.message}</p>}
+    </>
   );
 }

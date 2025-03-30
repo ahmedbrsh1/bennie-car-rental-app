@@ -7,8 +7,9 @@ import {
   faRoute,
   faCar,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Await, Link } from "react-router-dom";
 import CarPreview from "./CarPreview";
+import { Suspense } from "react";
 
 export default function Home({ cars }) {
   return (
@@ -108,7 +109,11 @@ export default function Home({ cars }) {
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora reiciendis aspernatur neque dolores mollitia molestias obcaecati quas esse, illo doloremque provident perferendis placeat maxime! Non accusantium reiciendis modi saepe aliquam?"
         }
       >
-        <CarPreview cars={cars} />
+        <Suspense fallback={<p className="loading">Loading...</p>}>
+          <Await resolve={cars}>
+            {(resolvedCars) => <CarPreview cars={resolvedCars} />}
+          </Await>
+        </Suspense>
       </InformationSection>
     </>
   );

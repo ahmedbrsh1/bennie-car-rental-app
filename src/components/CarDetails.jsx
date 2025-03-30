@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./CarDetails.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -64,15 +64,6 @@ export default function CarDetails({ car }) {
     });
   }
   checkReservations();
-
-  function goToBooking() {
-    const token = localStorage.getItem("token");
-    if (token) {
-      navigate("booking");
-    } else {
-      navigate("/login");
-    }
-  }
 
   return (
     <>
@@ -187,9 +178,12 @@ export default function CarDetails({ car }) {
             </div>
 
             <div className="button-container">
-              <button onClick={goToBooking} className="button primary-button">
+              <Link
+                to={`/rentacar/${car.car_id}/booking`}
+                className="button primary-button"
+              >
                 Book Now
-              </button>
+              </Link>
             </div>
           </div>
         </div>

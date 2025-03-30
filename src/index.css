@@ -221,6 +221,19 @@ a:visited {
   color: var(--nero);
 }
 
+.danger {
+  background-color: var(--warning-background);
+  color: var(--warning-text);
+  padding: 0.5em 2.5em;
+
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .danger-button {
   background-color: var(--warning-background);
   color: var(--warning-text);
@@ -243,6 +256,14 @@ a:visited {
   color: var(--green);
   text-transform: uppercase;
   letter-spacing: 0.8rem;
+}
+
+.loading {
+  margin-top: 1em;
+  font-size: 2rem;
+  color: var(--nero);
+  text-align: center;
+  font-weight: 600;
 }
 
 .container {

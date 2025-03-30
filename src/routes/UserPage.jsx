@@ -11,6 +11,9 @@ export default function UserPage() {
 
 export async function userDataLoader() {
   const email = localStorage.getItem("token");
+  if (!email) {
+    return redirect("/login");
+  }
   const response = await fetch(
     `http://localhost:8000/index.php?action=getUserData`,
     {

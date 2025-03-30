@@ -25,5 +25,5 @@
 
 .rate_wrapper input:checked ~ label svg,
 .rate_wrapper input:checked:nth-of-type(n) ~ input ~ label svg {
-  color: gold;
+  color: var(--green);
 }

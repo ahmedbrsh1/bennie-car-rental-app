@@ -139,7 +139,6 @@
 }
 
 .user_drop_down_wrapper ul {
-  display: none;
   position: absolute;
   top: 100%;
   right: 0;
@@ -150,9 +149,6 @@
   border-radius: 5px;
 }
 
-.user_drop_down_wrapper:hover ul {
-  display: block;
-}
 .user_drop_down_wrapper ul li {
   border-bottom: 2px solid var(--nero);
   padding: 0.5em 0;

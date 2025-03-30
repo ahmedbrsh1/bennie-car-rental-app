@@ -16,6 +16,9 @@ export default function BookingPage() {
 
 export async function creditCardsLoader() {
   const token = localStorage.getItem("token");
+  if (!token) {
+    return redirect("/login");
+  }
 
   const response = await fetch(
     "http://localhost:8000/index.php?action=getAllCreditCards",

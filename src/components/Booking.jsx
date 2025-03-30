@@ -115,7 +115,11 @@ export default function Booking({ creditCards, errorData }) {
                 )}
               </div>
             </div>
-            {total_price && <h3>Total Price : {total_price}</h3>}
+            {total_price && (
+              <h3 style={{ marginTop: "1em" }} className="color-nero">
+                Total Price : {total_price}
+              </h3>
+            )}
 
             {errorData?.card_id && (
               <p className={classes.error}>Please select a payment method.</p>

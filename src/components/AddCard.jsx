@@ -5,7 +5,11 @@ import Modal from "./Modal";
 export default function AddCard({ errorData }) {
   return (
     <Modal>
-      <Form style={{ maxWidth: "30em" }} method="post" className={classes.form}>
+      <Form
+        style={{ minWidth: "24em", maxWidth: "30em" }}
+        method="post"
+        className={classes.form}
+      >
         {errorData?.error && <p className={classes.error}>{errorData.error}</p>}
         <div className={classes.inputs_wrapper}>
           <div>
