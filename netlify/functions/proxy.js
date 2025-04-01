@@ -1,32 +1,34 @@
-// Use dynamic import for node-fetch
-const fetch = (await import("node-fetch")).default;
+const fetch = require("node-fetch");
 
-export async function handler(event) {
-  const BACKEND_URL = process.env.BACKEND_URL;
-  const queryString = event.rawQueryString ? `?${event.rawQueryString}` : "";
-  const endpoint = `${BACKEND_URL}/index.php${queryString}`;
+exports.handler = async function (event, context) {
+  const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
+  const url = new URL(event.rawUrl);
+  const queryParams = url.searchParams;
+  const action = queryParams.get("action");
+  const endpoint = `${BACKEND_URL}/index.php?action=${action}`;
 
-  console.log("Proxying request to:", endpoint);
+  const fetchOptions = {
+    method: event.httpMethod,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: event.headers["authorization"] || "",
+    },
+    body: event.body ? event.body : undefined,
+  };
 
   try {
-    const response = await fetch(endpoint, {
-      method: event.httpMethod,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: event.headers.authorization || "",
-      },
-      body: event.body ? event.body : undefined,
-    });
-
-    const data = await response.text();
-    console.log("Response from backend:", data);
+    const response = await fetch(endpoint, fetchOptions);
+    const data = await response.json();
 
     return {
       statusCode: response.status,
-      body: data,
+      body: JSON.stringify(data),
     };
   } catch (error) {
-    console.error("Error in Netlify Function:", error);
-    return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
+    console.error("Error proxying request:", error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Server Error" }),
+    };
   }
-}
+};
