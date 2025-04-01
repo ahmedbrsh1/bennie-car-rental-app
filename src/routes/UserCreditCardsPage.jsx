@@ -9,7 +9,7 @@ export default function UserCreditCardsPage() {
   );
 }
 
-export async function deleteCardAction({ request }) {
+export async function action({ request }) {
   const data = await request.formData();
   const card_id = data.get("card_id");
 

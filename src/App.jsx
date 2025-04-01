@@ -1,41 +1,39 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useParams,
+} from "react-router-dom";
 import HomePage, { randomCarsLoader } from "./routes/HomePage";
 import RootLayout, { authLoader } from "./routes/RootLayout";
-import AboutPage from "./routes/AboutPage";
-import RentACar, { carsLoader, searchAction } from "./routes/RentACar";
-import LoginPage, { loginAction } from "./routes/LoginPage";
-import RegisterPage, { registerAction } from "./routes/RegisterPage";
+import { lazy } from "react";
 
-import CarDetailsPage, { carDetailsLoader } from "./routes/CarDetailsPage";
+const AboutPage = lazy(() => import("./routes/AboutPage"));
+const LoginPage = lazy(() => import("./routes/LoginPage"));
+const RegisterPage = lazy(() => import("./routes/RegisterPage"));
+const CarDetailsPage = lazy(() => import("./routes/CarDetailsPage"));
+const BookingPage = lazy(() => import("./routes/BookingPage"));
+const AddCardPage = lazy(() => import("./routes/AddCardPage"));
+const AdminPage = lazy(() => import("./routes/AdminPage"));
+const RegisterCarPage = lazy(() => import("./routes/RegisterCarPage"));
+const ReportsPage = lazy(() => import("./routes/ReportsPage"));
+const UserPage = lazy(() => import("./routes/UserPage"));
+const RentACar = lazy(() => import("./routes/RentACar"));
+const UserReservationsPage = lazy(() =>
+  import("./routes/UserReservationsPage")
+);
+const UserCreditCardsPage = lazy(() => import("./routes/UserCreditCardsPage"));
+const ReviewCarPage = lazy(() => import("./routes/ReviewCarPage"));
+const Account = lazy(() => import("./components/Account"));
 
-import BookingPage, { bookCar, creditCardsLoader } from "./routes/BookingPage";
-import AddCardPage, { addCreditCard } from "./routes/AddCardPage";
-import AdminPage from "./routes/AdminPage";
-import RegisterCarPage, { registerCarAction } from "./routes/RegisterCarPage";
-import ReportsPage, { reportsAction } from "./routes/ReportsPage";
-import BranchPage, { branchAction, branchLoader } from "./routes/BranchPage";
 import ErrorPage from "./routes/ErrorPage";
 import Logout, { logoutAction } from "./routes/Logout";
-
-import UserPage, {
-  userDataLoader,
-  userUpdateAndDeleteAction,
-} from "./routes/UserPage";
-import Account from "./components/Account";
-import UserReservationsPage, {
-  cancelReservationAction,
-} from "./routes/UserReservationsPage";
-import UserCreditCardsPage, {
-  deleteCardAction,
-} from "./routes/UserCreditCardsPage";
-import ReviewCarPage, { reviewAction } from "./routes/ReviewCarPage";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <RootLayout />,
-      // errorElement: <ErrorPage />,
+      errorElement: <ErrorPage />,
       loader: authLoader,
       id: "authLoader",
       children: [
@@ -44,55 +42,65 @@ function App() {
           element: <HomePage />,
 
           loader: randomCarsLoader,
-          children: [
-            {
-              path: "branch",
-              element: <BranchPage />,
-              loader: branchLoader,
-              action: branchAction,
-            },
-          ],
         },
         { path: "about", element: <AboutPage /> },
         {
           path: "rentacar",
           element: <RentACar />,
-          action: searchAction,
-          loader: carsLoader,
+          action: (args) =>
+            import("./routes/RentACar").then((module) => module.action(args)),
+          loader: (args) =>
+            import("./routes/RentACar").then((module) => module.loader(args)),
         },
 
         {
           path: "/user",
           element: <UserPage />,
-          loader: userDataLoader,
+          loader: (args) =>
+            import("./routes/UserPage").then((module) => module.loader(args)),
           id: "userDataLoader",
           children: [
             {
               path: "account",
               element: <Account />,
-              action: userUpdateAndDeleteAction,
+              action: (args) =>
+                import("./routes/UserPage").then((module) =>
+                  module.action(args)
+                ),
             },
             {
               path: "reservations",
               element: <UserReservationsPage />,
-              action: cancelReservationAction,
+              action: (args) =>
+                import("./routes/UserReservationsPage").then((module) =>
+                  module.action(args)
+                ),
               children: [
                 {
                   path: ":car_id/review",
                   element: <ReviewCarPage />,
-                  action: reviewAction,
+                  action: (args) =>
+                    import("./routes/ReviewCarPage").then((module) =>
+                      module.action(args)
+                    ),
                 },
               ],
             },
             {
               path: "credit_cards",
               element: <UserCreditCardsPage />,
-              action: deleteCardAction,
+              action: (args) =>
+                import("./routes/UserCreditCardsPage").then((module) =>
+                  module.action(args)
+                ),
               children: [
                 {
                   path: "addcreditcard",
                   element: <AddCardPage />,
-                  action: addCreditCard,
+                  action: (args) =>
+                    import("./routes/AddCardPage").then((module) =>
+                      module.action(args)
+                    ),
                 },
               ],
             },
@@ -105,39 +113,65 @@ function App() {
         {
           path: "/admin/registercar",
           element: <RegisterCarPage />,
-          action: registerCarAction,
+          action: (args) =>
+            import("./routes/RegisterCarPage").then((module) =>
+              module.action(args)
+            ),
         },
         {
           path: "/admin/reports",
           element: <ReportsPage />,
-          action: reportsAction,
+          action: (args) =>
+            import("./routes/ReportsPage").then((module) =>
+              module.action(args)
+            ),
         },
         {
           path: "rentacar/:id",
           element: <CarDetailsPage />,
           id: "car",
-          loader: carDetailsLoader,
+          loader: (args) =>
+            import("./routes/CarDetailsPage").then((module) =>
+              module.loader(args)
+            ),
           children: [
             {
               path: "booking",
               element: <BookingPage />,
-              action: bookCar,
-              loader: creditCardsLoader,
+              action: (args) =>
+                import("./routes/BookingPage").then((module) =>
+                  module.action(args)
+                ),
+              loader: (args) =>
+                import("./routes/BookingPage").then((module) =>
+                  module.loader(args)
+                ),
             },
             {
               path: "addcreditcard",
               element: <AddCardPage />,
-              action: addCreditCard,
+              action: (args) =>
+                import("./routes/AddCardPage").then((module) =>
+                  module.action(args)
+                ),
             },
           ],
         },
 
-        { path: "/login", element: <LoginPage />, action: loginAction },
+        {
+          path: "/login",
+          element: <LoginPage />,
+          action: (args) =>
+            import("./routes/LoginPage").then((module) => module.action(args)),
+        },
         { path: "/logout", element: <Logout />, action: logoutAction },
         {
           path: "/register",
           element: <RegisterPage />,
-          action: registerAction,
+          action: (args) =>
+            import("./routes/RegisterPage").then((module) =>
+              module.action(args)
+            ),
         },
       ],
     },

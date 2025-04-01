@@ -2,7 +2,6 @@ import { Form, Link, useRouteLoaderData } from "react-router-dom";
 
 export default function UserReservations() {
   const userBookings = useRouteLoaderData("userDataLoader").bookings;
-  console.log(userBookings);
 
   return (
     <table>

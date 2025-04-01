@@ -15,7 +15,7 @@ export default function AddCardPage() {
   );
 }
 
-export async function addCreditCard({ request, params }) {
+export async function action({ request, params }) {
   const token = localStorage.getItem("token");
   const form = await request.formData();
   const card = Object.fromEntries(form.entries());

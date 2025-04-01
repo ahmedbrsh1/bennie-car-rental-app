@@ -10,6 +10,7 @@ import {
   faCar,
   faWind,
 } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "motion/react";
 
 export default function CarPreview({ cars }) {
   const carImages = {
@@ -43,7 +44,7 @@ export default function CarPreview({ cars }) {
   return (
     <>
       {(!cars?.isError && (
-        <ul className={styles.ul}>
+        <motion.ul layout className={styles.ul}>
           {cars.map((car) => {
             return (
               <li className={styles.li} key={car.car_id}>
@@ -87,7 +88,7 @@ export default function CarPreview({ cars }) {
               </li>
             );
           })}
-        </ul>
+        </motion.ul>
       )) || <p className="danger">{cars.message}</p>}
     </>
   );

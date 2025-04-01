@@ -5,11 +5,18 @@ import Footer from "../components/Footer.jsx";
 export default function RootLayout() {
   return (
     <>
-      <MainNavigation />
+      <div
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      >
+        <MainNavigation />
+        <main style={{ flex: 1 }}>
+          {" "}
+          {/* This makes content take available space */}
+          <Outlet />
+        </main>
 
-      <Outlet />
-
-      <Footer />
+        <Footer />
+      </div>
     </>
   );
 }

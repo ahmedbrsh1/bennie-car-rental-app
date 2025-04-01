@@ -3,12 +3,11 @@ import Reports from "../components/Reports";
 
 export default function ReportsPage() {
   const report = useActionData();
-  console.log(report);
 
   return <Reports report={report} />;
 }
 
-export async function reportsAction({ request }) {
+export async function action({ request }) {
   const data = await request.formData();
   const report_type = data.get("report_type");
   let report_details = {

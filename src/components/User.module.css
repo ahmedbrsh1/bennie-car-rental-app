@@ -6,7 +6,7 @@
   background-color: var(--green);
   width: 20%;
   padding: 2em;
-  min-height: 50vh;
+  min-height: 10em;
 }
 
 .user_wrapper nav li {

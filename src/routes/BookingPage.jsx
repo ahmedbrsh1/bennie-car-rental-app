@@ -14,7 +14,7 @@ export default function BookingPage() {
   );
 }
 
-export async function creditCardsLoader() {
+export async function loader() {
   const token = localStorage.getItem("token");
   if (!token) {
     return redirect("/login");
@@ -34,7 +34,7 @@ export async function creditCardsLoader() {
   return resData;
 }
 
-export async function bookCar({ request, params }) {
+export async function action({ request, params }) {
   const form = await request.formData();
   const book = Object.fromEntries(form.entries());
 

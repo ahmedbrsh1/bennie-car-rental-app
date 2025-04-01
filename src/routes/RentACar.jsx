@@ -15,25 +15,28 @@ export default function RentACar() {
 }
 
 async function fetchCars() {
-  const branch_id = localStorage.getItem("branch_id");
-  const response = await fetch(
-    `http://localhost:8000/index.php?action=getAllCars&branch_id=${branch_id}`
-  );
+  try {
+    const response = await fetch(
+      `http://localhost:8000/index.php?action=getAllCars`
+    );
 
-  if (!response.ok) {
-    return { isError: true, message: "Could not fetch cars !" };
-  } else {
-    return response.json();
+    if (!response.ok) {
+      return { isError: true, message: "Could not fetch cars!" };
+    }
+
+    return await response.json();
+  } catch (error) {
+    return { isError: true, message: "Network error. Server may be down." };
   }
 }
 
-export async function carsLoader() {
+export async function loader() {
   return {
     cars: fetchCars(),
   };
 }
 
-export async function searchAction({ request }) {
+export async function action({ request }) {
   const data = await request.formData();
 
   const car = {

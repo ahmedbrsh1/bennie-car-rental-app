@@ -4,7 +4,7 @@ export default function RegisterCarPage() {
   return <RegisterCar />;
 }
 
-export async function registerCarAction({ request }) {
+export async function action({ request }) {
   const data = await request.formData();
   const car = {
     manufacturer: data.get("manufacturer"),

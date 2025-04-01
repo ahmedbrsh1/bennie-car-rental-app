@@ -1,19 +1,8 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
-import CarPreview from "../components/CarPreview";
-import { useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
 import Home from "../components/Home";
 
 export default function HomePage() {
   const { cars } = useLoaderData();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const branchId = localStorage.getItem("branch_id");
-
-    if (!branchId) {
-      navigate("/branch");
-    }
-  }, [navigate]);
 
   return (
     <>
@@ -24,16 +13,19 @@ export default function HomePage() {
 
 async function fetchRandomCars() {
   const branch_id = localStorage.getItem("branch_id");
-  const response = await fetch(
-    `http://localhost:8000/index.php?action=getRandomCars&branch_id=${branch_id}`
-  );
+  try {
+    const response = await fetch(
+      `http://localhost:8000/index.php?action=getRandomCars&branch_id=${branch_id}`
+    );
 
-  if (!response.ok) {
-    return { isError: true, message: "Could not fetch cars !" };
-  } else {
-    const resData = await response.json();
-
-    return resData;
+    if (!response.ok) {
+      return { isError: true, message: "Could not fetch cars !" };
+    } else {
+      const resData = await response.json();
+      return resData;
+    }
+  } catch (error) {
+    return { isError: true, message: "Network Error, Server might be down !" };
   }
 }
 

@@ -17,16 +17,6 @@ export default function MainNavigation() {
     setIsHoverUser(!isHoverUser);
   }
 
-  useEffect(() => {
-    fetcher.load("/rentacar"); // Trigger the fetch on mount
-  }, []);
-
-  useEffect(() => {
-    if (fetcher.data) {
-      setCars(fetcher.data); // Update state when fetcher.data is available
-    }
-  }, [fetcher.data]); // Runs only when fetcher.data changes
-
   function updateUserSearch(e) {
     setFilteredCars(() => {
       if (e.target.value.trim().length > 0) {

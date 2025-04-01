@@ -10,7 +10,7 @@ export default function UserReservationsPage() {
   );
 }
 
-export async function cancelReservationAction({ request }) {
+export async function action({ request }) {
   const data = await request.formData();
   const book_id = data.get("intent");
 

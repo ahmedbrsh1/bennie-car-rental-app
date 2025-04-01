@@ -9,7 +9,7 @@ export default function UserPage() {
   );
 }
 
-export async function userDataLoader() {
+export async function loader() {
   const email = localStorage.getItem("token");
   if (!email) {
     return redirect("/login");
@@ -29,7 +29,7 @@ export async function userDataLoader() {
   return resData;
 }
 
-export async function userUpdateAndDeleteAction({ request }) {
+export async function action({ request }) {
   const token = localStorage.getItem("token");
 
   if (request.method === "PATCH") {

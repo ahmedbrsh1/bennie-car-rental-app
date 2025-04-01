@@ -102,6 +102,7 @@ export default function Home({ cars }) {
         </article>
       </InformationSection>
       <div className="seperating-border"></div>
+
       <InformationSection
         mainHeader={"Explore a Sample"}
         mainHeaderGreen={"Of Our Cars"}

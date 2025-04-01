@@ -11,7 +11,7 @@ export default function LoginPage() {
   );
 }
 
-export async function loginAction({ request }) {
+export async function action({ request }) {
   const fd = await request.formData();
   const user = Object.fromEntries(fd.entries());
 

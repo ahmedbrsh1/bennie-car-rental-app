@@ -1,14 +1,16 @@
 import { Outlet, useRouteError } from "react-router-dom";
-import Error from "../components/Error";
+
+import MainNavigation from "../components/MainNavigation";
 
 export default function ErrorPage() {
   const error = useRouteError();
-  console.log(error.message);
 
   return (
     <>
-      <Outlet />
-      <Error error={error.message} />
+      <MainNavigation />
+      <h2 style={{ marginTop: "1em", minHeight: "10em" }} className="danger">
+        {error.message || "You've encoutered an error ! Where to go now ?"}
+      </h2>
     </>
   );
 }

@@ -5,7 +5,7 @@ export default function ReviewCarPage() {
   return <ReviewCar />;
 }
 
-export async function reviewAction({ params, request }) {
+export async function action({ params, request }) {
   const fd = await request.formData();
   const token = localStorage.getItem("token");
   const review = {

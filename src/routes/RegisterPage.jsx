@@ -12,7 +12,7 @@ export default function RegisterPage() {
   return <Register errorData={errorData} />;
 }
 
-export async function registerAction({ request }) {
+export async function action({ request }) {
   const data = await request.formData();
   const user = Object.fromEntries(data.entries());
 
