@@ -17,7 +17,7 @@ async function fetchRandomCars() {
   const value = process.env.REACT_APP_API_URL;
   try {
     const response = await fetch(
-      `${value}?action=getRandomCars&branch_id=${branch_id}`
+      `/.netlify/functions/proxy?action=getRandomCars&branch_id=${branch_id}`
     );
 
     if (!response.ok) {
