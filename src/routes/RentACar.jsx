@@ -17,7 +17,7 @@ export default function RentACar() {
 
 async function fetchCars() {
   try {
-    const response = await fetch(`${API_URL}?action=getAllCars`);
+    const response = await fetch(`/.netlify/functions/proxy?action=getAllCars`);
 
     if (!response.ok) {
       return { isError: true, message: "Could not fetch cars!" };
@@ -45,7 +45,7 @@ export async function action({ request }) {
     model: data.get("model"),
     year: data.get("year"),
   };
-  const response = await fetch(`${API_URL}?action=searchCars`, {
+  const response = await fetch(`/.netlify/functions/proxy?action=searchCars`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

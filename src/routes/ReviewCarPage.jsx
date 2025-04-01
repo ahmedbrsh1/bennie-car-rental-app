@@ -21,7 +21,7 @@ export async function action({ params, request }) {
     return { error: "Please select a rate." };
   }
 
-  const response = await fetch(`${API_URL}?action=addReview`, {
+  const response = await fetch(`/.netlify/functions/proxy?action=addReview`, {
     method: "POST",
     headers: {
       "Content-Type": "Application/json",

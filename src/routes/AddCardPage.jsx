@@ -31,14 +31,17 @@ export async function action({ request, params }) {
     return errors;
   }
 
-  const response = await fetch(`${API_URL}?action=addCreditCard`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "Application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(card),
-  });
+  const response = await fetch(
+    `/.netlify/functions/proxy?action=addCreditCard`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(card),
+    }
+  );
 
   if (!response.ok) {
     const resError = await response.json();

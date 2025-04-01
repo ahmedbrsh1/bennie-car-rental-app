@@ -14,7 +14,9 @@ export default function CarDetailsPage() {
 }
 
 export async function loader({ params }) {
-  const response = await fetch(`${API_URL}?action=getCarById&id=${params.id}`);
+  const response = await fetch(
+    `/.netlify/functions/proxy?action=getCarById&id=${params.id}`
+  );
 
   if (!response.ok) {
     throw new Error("Error ! Can't load selected car");

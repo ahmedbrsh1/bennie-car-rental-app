@@ -17,7 +17,7 @@ export async function action({ request }) {
     branch_id: data.get("branch_id"),
     available: data.get("available") ? "Y" : "F",
   };
-  const response = await fetch(`${API_URL}?action=registerCar`, {
+  const response = await fetch(`/.netlify/functions/proxy?action=registerCar`, {
     method: "POST",
     headers: {
       "Content-Type": "Application/json",

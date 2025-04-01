@@ -14,7 +14,7 @@ export async function action({ request }) {
   const data = await request.formData();
   const card_id = data.get("card_id");
 
-  const response = await fetch(`${API_URL}?action=deleteCard`, {
+  const response = await fetch(`/.netlify/functions/proxy?action=deleteCard`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ card_id }),

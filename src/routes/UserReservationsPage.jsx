@@ -15,13 +15,16 @@ export async function action({ request }) {
   const data = await request.formData();
   const book_id = data.get("intent");
 
-  const response = await fetch(`${API_URL}?action=cancelReservation`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ book_id }),
-  });
+  const response = await fetch(
+    `/.netlify/functions/proxy?action=cancelReservation`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ book_id }),
+    }
+  );
 
   const resData = await response.json();
   console.log(resData);

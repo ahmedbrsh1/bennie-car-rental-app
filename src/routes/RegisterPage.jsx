@@ -27,11 +27,14 @@ export async function action({ request }) {
     return errors;
   }
 
-  const response = await fetch(`${API_URL}?action=registerUser`, {
-    method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify(user),
-  });
+  const response = await fetch(
+    `/.netlify/functions/proxy?action=registerUser`,
+    {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(user),
+    }
+  );
 
   if (!response.ok) {
     const errorData = await response.json();

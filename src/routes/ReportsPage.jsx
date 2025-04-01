@@ -35,7 +35,7 @@ export async function action({ request }) {
     };
   }
 
-  const response = await fetch(`${API_URL}?action=getReport`, {
+  const response = await fetch(`/.netlify/functions/proxy?action=getReport`, {
     method: "POST",
     headers: {
       "Content-Type": "Application/json",

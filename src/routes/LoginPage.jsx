@@ -25,7 +25,7 @@ export async function action({ request }) {
     return errors;
   }
 
-  const response = await fetch(`${API_URL}?action=loginUser`, {
+  const response = await fetch(`/.netlify/functions/proxy?action=loginUser`, {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(user),

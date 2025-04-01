@@ -21,12 +21,15 @@ export async function loader() {
     return redirect("/login");
   }
 
-  const response = await fetch(`${API_URL}?action=getAllCreditCards`, {
-    headers: {
-      "Content-Type": "Application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await fetch(
+    `/.netlify/functions/proxy?action=getAllCreditCards`,
+    {
+      headers: {
+        "Content-Type": "Application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   const resData = await response.json();
 
   return resData;
