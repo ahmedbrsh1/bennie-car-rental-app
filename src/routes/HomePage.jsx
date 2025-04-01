@@ -14,9 +14,10 @@ export default function HomePage() {
 
 async function fetchRandomCars() {
   const branch_id = localStorage.getItem("branch_id");
+  const value = process.env.REACT_APP_API_URL;
   try {
     const response = await fetch(
-      `${API_URL}?action=getRandomCars&branch_id=${branch_id}`
+      `${value}?action=getRandomCars&branch_id=${branch_id}`
     );
 
     if (!response.ok) {
