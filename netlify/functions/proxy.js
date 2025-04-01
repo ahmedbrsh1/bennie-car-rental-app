@@ -1,12 +1,12 @@
-exports.handler = async (event) => {
-  // Dynamically import `node-fetch`
-  const fetch = (await import("node-fetch")).default;
+// Use dynamic import for node-fetch
+const fetch = (await import("node-fetch")).default;
 
+export async function handler(event) {
   const BACKEND_URL = process.env.BACKEND_URL;
   const queryString = event.rawQueryString ? `?${event.rawQueryString}` : "";
   const endpoint = `${BACKEND_URL}/index.php${queryString}`;
 
-  console.log("Proxying request to:", endpoint); // Log the backend endpoint
+  console.log("Proxying request to:", endpoint);
 
   try {
     const response = await fetch(endpoint, {
@@ -19,14 +19,14 @@ exports.handler = async (event) => {
     });
 
     const data = await response.text();
-    console.log("Response from backend:", data); // Log the backend response
+    console.log("Response from backend:", data);
 
     return {
       statusCode: response.status,
       body: data,
     };
   } catch (error) {
-    console.error("Error in Netlify Function:", error); // Log the error
+    console.error("Error in Netlify Function:", error);
     return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
   }
-};
+}
