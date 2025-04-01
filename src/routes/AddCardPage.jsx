@@ -5,6 +5,7 @@ import {
   hasEmptyFields,
   invalidCardNumber,
 } from "../util/validation";
+import { API_URL } from "../util/api";
 
 export default function AddCardPage() {
   const errorData = useActionData();
@@ -30,17 +31,14 @@ export async function action({ request, params }) {
     return errors;
   }
 
-  const response = await fetch(
-    "http://localhost:8000/index.php?action=addCreditCard",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "Application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(card),
-    }
-  );
+  const response = await fetch(`${API_URL}?action=addCreditCard`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "Application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(card),
+  });
 
   if (!response.ok) {
     const resError = await response.json();

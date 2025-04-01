@@ -1,5 +1,6 @@
 import { useActionData } from "react-router-dom";
 import Reports from "../components/Reports";
+import { API_URL } from "../util/api";
 
 export default function ReportsPage() {
   const report = useActionData();
@@ -34,16 +35,13 @@ export async function action({ request }) {
     };
   }
 
-  const response = await fetch(
-    `http://localhost:8000/index.php?action=getReport`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "Application/json",
-      },
-      body: JSON.stringify(report_details),
-    }
-  );
+  const response = await fetch(`${API_URL}?action=getReport`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "Application/json",
+    },
+    body: JSON.stringify(report_details),
+  });
 
   if (!response.ok) {
     //,,

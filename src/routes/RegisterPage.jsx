@@ -6,6 +6,7 @@ import {
   invalidEmail,
   isEmpty,
 } from "../util/validation";
+import { API_URL } from "../util/api";
 
 export default function RegisterPage() {
   const errorData = useActionData();
@@ -26,14 +27,11 @@ export async function action({ request }) {
     return errors;
   }
 
-  const response = await fetch(
-    "http://localhost:8000/index.php?action=registerUser",
-    {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(user),
-    }
-  );
+  const response = await fetch(`${API_URL}?action=registerUser`, {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(user),
+  });
 
   if (!response.ok) {
     const errorData = await response.json();

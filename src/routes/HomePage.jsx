@@ -1,5 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import Home from "../components/Home";
+import { API_URL } from "../util/api";
 
 export default function HomePage() {
   const { cars } = useLoaderData();
@@ -15,7 +16,7 @@ async function fetchRandomCars() {
   const branch_id = localStorage.getItem("branch_id");
   try {
     const response = await fetch(
-      `http://localhost:8000/index.php?action=getRandomCars&branch_id=${branch_id}`
+      `${API_URL}?action=getRandomCars&branch_id=${branch_id}`
     );
 
     if (!response.ok) {

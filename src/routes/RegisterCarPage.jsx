@@ -1,4 +1,5 @@
 import RegisterCar from "../components/RegisterCar";
+import { API_URL } from "../util/api";
 
 export default function RegisterCarPage() {
   return <RegisterCar />;
@@ -16,16 +17,13 @@ export async function action({ request }) {
     branch_id: data.get("branch_id"),
     available: data.get("available") ? "Y" : "F",
   };
-  const response = await fetch(
-    `http://localhost:8000/index.php?action=registerCar`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "Application/json",
-      },
-      body: JSON.stringify(car),
-    }
-  );
+  const response = await fetch(`${API_URL}?action=registerCar`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "Application/json",
+    },
+    body: JSON.stringify(car),
+  });
 
   if (!response.ok) {
     const error = await response.json();

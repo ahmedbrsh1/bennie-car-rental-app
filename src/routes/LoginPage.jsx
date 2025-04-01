@@ -1,6 +1,7 @@
 import { redirect, useActionData } from "react-router-dom";
 import Login from "../components/Login";
 import { hasEmptyFields, invalidEmail } from "../util/validation";
+import { API_URL } from "../util/api";
 
 export default function LoginPage() {
   const errorData = useActionData();
@@ -24,14 +25,11 @@ export async function action({ request }) {
     return errors;
   }
 
-  const response = await fetch(
-    "http://localhost:8000/index.php?action=loginUser",
-    {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(user),
-    }
-  );
+  const response = await fetch(`${API_URL}?action=loginUser`, {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(user),
+  });
 
   if (!response.ok) {
     const errorData = response.json();

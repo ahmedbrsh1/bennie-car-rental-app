@@ -1,5 +1,6 @@
 import { Outlet, useLoaderData, useLocation } from "react-router-dom";
 import CarDetails from "../components/CarDetails";
+import { API_URL } from "../util/api";
 
 export default function CarDetailsPage() {
   const car = useLoaderData();
@@ -13,9 +14,7 @@ export default function CarDetailsPage() {
 }
 
 export async function loader({ params }) {
-  const response = await fetch(
-    `http://localhost:8000/index.php?action=getCarById&id=${params.id}`
-  );
+  const response = await fetch(`${API_URL}?action=getCarById&id=${params.id}`);
 
   if (!response.ok) {
     throw new Error("Error ! Can't load selected car");

@@ -1,6 +1,7 @@
 import { Outlet, useActionData, useLoaderData } from "react-router-dom";
 
 import Listings from "../components/Listings";
+import { API_URL } from "../util/api";
 
 export default function RentACar() {
   const { cars } = useLoaderData();
@@ -16,9 +17,7 @@ export default function RentACar() {
 
 async function fetchCars() {
   try {
-    const response = await fetch(
-      `http://localhost:8000/index.php?action=getAllCars`
-    );
+    const response = await fetch(`${API_URL}?action=getAllCars`);
 
     if (!response.ok) {
       return { isError: true, message: "Could not fetch cars!" };
@@ -46,16 +45,13 @@ export async function action({ request }) {
     model: data.get("model"),
     year: data.get("year"),
   };
-  const response = await fetch(
-    `http://localhost:8000/index.php?action=searchCars`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(car),
-    }
-  );
+  const response = await fetch(`${API_URL}?action=searchCars`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(car),
+  });
 
   if (!response.ok) {
     const error = await response.json();

@@ -1,5 +1,6 @@
 import { redirect, useNavigate } from "react-router-dom";
 import ReviewCar from "../components/ReviewCar";
+import { API_URL } from "../util/api";
 
 export default function ReviewCarPage() {
   return <ReviewCar />;
@@ -20,7 +21,7 @@ export async function action({ params, request }) {
     return { error: "Please select a rate." };
   }
 
-  const response = await fetch("http://localhost:8000/?action=addReview", {
+  const response = await fetch(`${API_URL}?action=addReview`, {
     method: "POST",
     headers: {
       "Content-Type": "Application/json",

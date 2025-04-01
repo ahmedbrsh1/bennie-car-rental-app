@@ -2,6 +2,7 @@ import { redirect, useActionData, useLoaderData } from "react-router-dom";
 import Booking from "../components/Booking";
 
 import { hasEmptyFields, isEmpty } from "../util/validation";
+import { API_URL } from "../util/api";
 
 export default function BookingPage() {
   const errorData = useActionData();
@@ -20,15 +21,12 @@ export async function loader() {
     return redirect("/login");
   }
 
-  const response = await fetch(
-    "http://localhost:8000/index.php?action=getAllCreditCards",
-    {
-      headers: {
-        "Content-Type": "Application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch(`${API_URL}?action=getAllCreditCards`, {
+    headers: {
+      "Content-Type": "Application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
   const resData = await response.json();
 
   return resData;
