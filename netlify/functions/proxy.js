@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+const fetch = import("node-fetch");
 
 exports.handler = async function (event, context) {
   const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
