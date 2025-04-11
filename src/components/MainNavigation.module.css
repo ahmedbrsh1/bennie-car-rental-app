@@ -150,9 +150,16 @@
 }
 
 .user_drop_down_wrapper ul li {
-  border-bottom: 2px solid var(--nero);
-  padding: 0.5em 0;
+  border-bottom: 1px solid var(--gray-border);
+  padding: 0.5em;
+  display: block;
+  width: 100%;
+  border-radius: 3px;
 }
+.user_drop_down_wrapper ul li:hover {
+  background-color: var(--gray-border);
+}
+
 .user_drop_down_wrapper ul li:last-child {
   border-bottom: none;
 }

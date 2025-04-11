@@ -1,9 +1,10 @@
-import { Outlet, useActionData, useLoaderData } from "react-router-dom";
+import { Outlet, useActionData, useRouteLoaderData } from "react-router-dom";
 
 import Listings from "../components/Listings";
 
 export default function RentACar() {
-  const { cars } = useLoaderData();
+  const { cars } = useRouteLoaderData("authLoader");
+
   const searchedCars = useActionData();
 
   return (
@@ -12,28 +13,6 @@ export default function RentACar() {
       <Outlet />
     </>
   );
-}
-
-async function fetchCars() {
-  try {
-    const response = await fetch(
-      `http://localhost:8000/index.php?action=getAllCars`
-    );
-
-    if (!response.ok) {
-      return { isError: true, message: "Could not fetch cars!" };
-    }
-
-    return await response.json();
-  } catch (error) {
-    return { isError: true, message: "Network error. Server may be down." };
-  }
-}
-
-export async function loader() {
-  return {
-    cars: fetchCars(),
-  };
 }
 
 export async function action({ request }) {

@@ -1,16 +1,14 @@
-import { Form, Link, useFetcher, useRouteLoaderData } from "react-router-dom";
+import { Form, Link, useRouteLoaderData } from "react-router-dom";
 import styles from "./MainNavigation.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 export default function MainNavigation() {
-  const { token } = useRouteLoaderData("authLoader");
-  const fetcher = useFetcher();
+  const { token, cars } = useRouteLoaderData("authLoader");
   const [filteredCars, setFilteredCars] = useState([]);
-  const [cars, setCars] = useState([]);
   const [isHoverUser, setIsHoverUser] = useState(false);
 
   function isHoverUpdater() {
@@ -42,11 +40,7 @@ export default function MainNavigation() {
             <div className={styles.hover_icon}>
               <FontAwesomeIcon icon={faBars} />
             </div>
-            <motion.ul
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className={styles.ul}
-            >
+            <ul className={styles.ul}>
               <li>
                 <Link to={"/"}>Home</Link>
               </li>
@@ -59,7 +53,7 @@ export default function MainNavigation() {
               <li>
                 <Link to={"/contact"}>Contact</Link>
               </li>
-            </motion.ul>
+            </ul>
           </div>
 
           <div className={styles.search}>
@@ -123,8 +117,8 @@ export default function MainNavigation() {
           {token && (
             <>
               <motion.div
-                onHoverStart={isHoverUpdater}
-                onHoverEnd={isHoverUpdater}
+                onMouseEnter={isHoverUpdater}
+                onMouseLeave={isHoverUpdater}
                 className={styles.user_drop_down_wrapper}
               >
                 <div>
@@ -142,6 +136,7 @@ export default function MainNavigation() {
                   }}
                   initial="hidden"
                   animate={isHoverUser ? "visible" : "hidden"}
+                  transition={{ duration: 0.1 }}
                 >
                   <motion.li
                     variants={{

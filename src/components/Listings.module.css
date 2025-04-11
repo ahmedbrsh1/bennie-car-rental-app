@@ -36,6 +36,7 @@
   .search_wrapper {
     width: 100%;
     margin-bottom: 3em;
+    padding-inline: 0;
   }
   .car_preview_wrapper {
     width: 100%;
