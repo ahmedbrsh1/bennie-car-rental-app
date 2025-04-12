@@ -49,8 +49,6 @@ function App() {
           element: <RentACar />,
           action: (args) =>
             import("./routes/RentACar").then((module) => module.action(args)),
-          loader: (args) =>
-            import("./routes/RentACar").then((module) => module.loader(args)),
         },
 
         {

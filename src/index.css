@@ -201,24 +201,9 @@ a:visited {
   position: relative;
 }
 
-.secondary-button::before {
-  content: "";
-  position: absolute;
-  height: 0;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  background-color: var(--text);
-  transition: 0.3s linear;
-  z-index: -1;
-}
-
-.secondary-button:hover::before {
-  height: 100%;
-}
-
 .secondary-button:hover {
   color: var(--nero);
+  background-color: var(--text);
 }
 
 .danger {

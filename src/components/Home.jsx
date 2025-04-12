@@ -101,9 +101,9 @@ export default function Home({ cars }) {
           <Link style={{ color: "var(--nero)" }}>Read More</Link>
         </article>
       </InformationSection>
-      <div className="seperating-border"></div>
+      {/* <div className="seperating-border"></div> */}
 
-      <InformationSection
+      {/* <InformationSection
         mainHeader={"Explore a Sample"}
         mainHeaderGreen={"Of Our Cars"}
         paragraph={
@@ -115,7 +115,7 @@ export default function Home({ cars }) {
             {(resolvedCars) => <CarPreview cars={resolvedCars} />}
           </Await>
         </Suspense>
-      </InformationSection>
+      </InformationSection> */}
     </>
   );
 }
