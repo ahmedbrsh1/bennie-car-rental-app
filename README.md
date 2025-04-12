@@ -16,7 +16,7 @@ Originally built for a college project and later improved for deployment
 - Search and filter functionality
 
 ## Project Specifications
-- Frontend: React - React Router
+- Frontend: React , Framer-Motion
 - Backend: PHP
 - Database: MySQL
 - Deployment: Netlify + Railway
