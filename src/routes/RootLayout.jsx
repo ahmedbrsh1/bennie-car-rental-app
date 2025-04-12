@@ -19,7 +19,9 @@ export default function RootLayout() {
         )}
 
         {navigation.state === "loading" && (
-          <h1 className="loading">Loading...</h1>
+          <h1 style={{ minHeight: "80vh" }} className="loading">
+            Loading...
+          </h1>
         )}
 
         <Footer />
