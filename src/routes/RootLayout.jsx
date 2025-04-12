@@ -12,11 +12,16 @@ export default function RootLayout() {
 
         {navigation.state !== "loading" && (
           <main style={{ minHeight: "80vh" }}>
-            {navigation.state === "loading" && (
-              <h1 className="loading">Loading...</h1>
-            )}
-            {navigation.state !== "loading" && <Outlet />}
+            {" "}
+            {/* This makes content take available space */}
+            <Outlet />
           </main>
+        )}
+
+        {navigation.state === "loading" && (
+          <h1 style={{ minHeight: "80vh" }} className="loading">
+            Loading...
+          </h1>
         )}
 
         <Footer />
