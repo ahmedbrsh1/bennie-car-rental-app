@@ -33,9 +33,7 @@ export async function authLoader() {
   const token = localStorage.getItem("token");
 
   try {
-    const response = await fetch(
-      `http://localhost:8000/index.php?action=getAllCars`
-    );
+    const response = await fetch(`/.netlify/functions/proxy?action=getAllCars`);
 
     if (!response.ok) {
       return { isError: true, message: "Could not fetch cars!" };
