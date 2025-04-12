@@ -63,7 +63,7 @@ export async function action({ request, params }) {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
-    "http://localhost:8000/index.php?action=createBooking",
+    "/.netlify/functions/proxy?action=createBooking",
     {
       method: "POST",
       headers: {
